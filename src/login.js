@@ -1,27 +1,14 @@
-const bcrypt = require('bcrypt');
-const dbConnection = require('../database/db_connection.js');
+const env = require('env2')('./config.env');
 
-module.exports = (req, reply) => {
-  const username = req.payload.username;
-  const password = req.payload.password;
+const login = ({
+  path: '/login',
+  method: 'GET',
+  config: {
+    auth: false,
+  },
+  handler: (request, reply) => {
+    reply.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.BASE_URL}/welcome`);
+  },
+});
 
-  dbConnection.query(`SELECT exists(SELECT users.username FROM users WHERE users.username = '${username}') FROM users`, (err, res) => {
-    if (res.rows[0].exists) {
-      dbConnection.query(`SELECT * from users WHERE users.username = '${username}';`, (err, res) => {
-        if (err) throw err;
-        const user = res.rows[0];
-        bcrypt.compare(password, user.password, (err, isValid) => {
-          if (err) throw err;
-          if (isValid) {
-            req.cookieAuth.set({ username });
-            reply.redirect('/create-post');
-          } else {
-            reply.view('failed-login');
-          }
-        });
-      });
-    } else {
-      reply.view('failed-login');
-    }
-  });
-};
+module.exports = login;
