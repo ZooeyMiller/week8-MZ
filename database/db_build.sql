@@ -4,30 +4,26 @@ DROP TABLE IF EXISTS users, posts;
 
 CREATE TABLE users (
   user_id         SERIAL          PRIMARY KEY,
-  username        VARCHAR(100)    NOT NULL,
-  password        VARCHAR(100)    NOT NULL,
-  isAdmin         BOOLEAN         NOT NULL
+  github_username VARCHAR(100)    NOT NULL,
+  avatar_url      VARCHAR(300)    NOT NULL,
+  github_id       INTEGER         NOT NULL,
+  access_token    VARCHAR(500)    NOT NULL
 );
 
 CREATE TABLE posts (
   post_id         SERIAL          PRIMARY KEY,
   title           VARCHAR(50)     NOT NULL,
   body            VARCHAR(5000)   NOT NULL,
-  date            DATE            NOT NULL,
   user_id         INTEGER         REFERENCES users(user_id)
 );
 
--- 1 TO MANY
-INSERT INTO users(username, password, isAdmin) VALUES
-('antonio', '$2a$10$MSfyTKDh/lppG0R.ztUtvubq3GYAjwZsZV3eQvHplk6xwF5vGCI3a', TRUE),
-('martha', '$2a$10$VHuVu//Ppx.Gd.dSo159E.H9KLjeHJzcDXHb.YQ3LphtHmP5n4Bl.', TRUE),
-('yvonne','$2a$10$6pspiF1JTETeWKCn9yqZwuqxrSeGK9EKveovqdZ75fiAKJLdSK5I.', TRUE),
-('zooey','$2a$10$vnXje.FHkOuk871dSnAWu.zpR25yPOdFrlQl3Bm9DrpH518N8EMN6', TRUE);
--- 1 TO 1
-INSERT INTO posts(title, body, date, user_id) VALUES
-('Lorem1', '111-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni maxime dicta ullam aut, sunt. Quidem veniam unde, minima, velit tempore odit voluptas alias, harum tenetur placeat animi, quaerat perspiciatis?','2017-04-01', 1),
-('Lorem2', '222-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni maxime dicta ullam aut, sunt. Quidem veniam unde, minima, velit tempore odit voluptas alias, harum tenetur placeat animi, quaerat perspiciatis?', '2017-04-02', 2),
-('Lorem3', '333-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni maxime dicta ullam aut, sunt. Quidem veniam unde, minima, velit tempore odit voluptas alias, harum tenetur placeat animi, quaerat perspiciatis?', '2017-04-03', 3),
-('Lorem4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni maxime dicta ullam aut, sunt. Quidem veniam unde, minima, velit tempore odit voluptas alias, harum tenetur placeat animi, quaerat perspiciatis?','2017-04-04', 4);
+INSERT INTO users(github_username, avatar_url, github_id, access_token) VALUES
+('MrCat', 'http://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg', 1234, 'canHazAccess'),
+('MsPuppy', 'http://cdn1-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-2.jpg', 5678, 'gimmeDaAccess');
+
+
+INSERT INTO posts(title, body, user_id) VALUES
+('Lorem1', '111-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni maxime dicta ullam aut, sunt. Quidem veniam unde, minima, velit tempore odit voluptas alias, harum tenetur placeat animi, quaerat perspiciatis?', 1),
+('Lorem2', '222-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni maxime dicta ullam aut, sunt. Quidem veniam unde, minima, velit tempore odit voluptas alias, harum tenetur placeat animi, quaerat perspiciatis?', 2);
 
 COMMIT;
