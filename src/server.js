@@ -5,20 +5,22 @@ const vision = require('vision');
 const Handlebars = require('handlebars');
 const cookieAuth = require('hapi-auth-cookie');
 const hapiAuth = require('hapi-auth-basic');
-
-// const validate = require('./validate');
+const env = require('env2')('./config.env');
 
 const server = new hapi.Server();
 
 server.connection({
   port: process.env.PORT || 4000,
+  state: {
+    isSameSite: 'Lax',
+  },
 });
 
 server.register([inert, vision, hapiAuth, cookieAuth], (err) => {
   if (err) throw err;
 
   const options = {
-    password: '12345678901234567890123456789012345678901234567890123456789012345678901234567890',
+    password: process.env.COOKIE_PASSWORD,
     cookie: 'logged-in',
     isSecure: false,
     ttl: 24 * 60 * 60 * 1000,
@@ -26,13 +28,13 @@ server.register([inert, vision, hapiAuth, cookieAuth], (err) => {
 
   server.auth.strategy('base', 'cookie', 'optional', options);
 
+
   server.views({
     engines: { hbs: Handlebars },
     path: 'views',
     layout: 'default',
     layoutPath: 'views/layouts',
     partialsPath: 'views/partials',
-    // helpersPath: 'views/helpers',
   });
 
 
