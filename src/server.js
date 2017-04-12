@@ -5,7 +5,8 @@ const vision = require('vision');
 const Handlebars = require('handlebars');
 const cookieAuth = require('hapi-auth-cookie');
 const hapiAuth = require('hapi-auth-basic');
-const validate = require('./validate');
+
+// const validate = require('./validate');
 
 const server = new hapi.Server();
 

@@ -1,6 +1,8 @@
 const addPost = require('./addPost.js');
 const loginFunc = require('./login.js');
 const dbConnection = require('../database/db_connection.js');
+const login = require('./login.js');
+const welcome = require('./welcome.js');
 
 
 const home = {
@@ -25,11 +27,11 @@ const loginPage = {
   },
 };
 
-const login = {
-  method: 'POST',
-  path: '/login',
-  handler: loginFunc,
-};
+// const login = {
+//   method: 'POST',
+//   path: '/login',
+//   handler: loginFunc,
+// };
 
 const createPost = {
   method: 'GET',
@@ -64,8 +66,9 @@ const logout = {
 module.exports = [
   home,
   loginPage,
-  login,
   createPost,
   logout,
   postBlog,
+  login,
+  welcome,
 ];
