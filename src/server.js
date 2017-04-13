@@ -23,7 +23,7 @@ server.register([inert, vision, hapiAuth, cookieAuth], (err) => {
   const options = {
     password: process.env.COOKIE_PASSWORD,
     cookie: 'logged-in',
-    isSecure: false,
+    isSecure: process.env.NODE_ENV !== 'DEV',
     ttl: 24 * 60 * 60 * 1000,
   };
 
