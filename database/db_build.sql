@@ -6,7 +6,7 @@ CREATE TABLE users (
   user_id         SERIAL          PRIMARY KEY,
   github_username VARCHAR(100)    NOT NULL,
   avatar_url      VARCHAR(300)    NOT NULL,
-  github_id       INTEGER         NOT NULL,
+  github_id       INTEGER         NOT NULL UNIQUE,
   access_token    VARCHAR(500)    NOT NULL
 );
 
