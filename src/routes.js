@@ -1,15 +1,16 @@
-const addPost = require('./addPost.js');
-const loginFunc = require('./login.js');
+const addPost = require('./addPost');
 const dbConnection = require('../database/db_connection.js');
 const login = require('./login.js');
 const welcome = require('./welcome.js');
+
+// console.log(addPost);
 
 
 const home = {
   method: 'GET',
   path: '/',
   handler: (req, reply) => {
-    dbConnection.query('SELECT posts.title AS title, posts.body AS body, users.username AS username FROM posts INNER JOIN users ON posts.user_id = users.user_id', (err, res) => {
+    dbConnection.query('SELECT posts.title AS title, posts.body AS body, users.github_username AS username FROM posts INNER JOIN users ON posts.user_id = users.user_id', (err, res) => {
       if (err) return err;
       reply.view('index', {
         credentials: req.auth.credentials,
@@ -19,19 +20,6 @@ const home = {
   },
 };
 
-const loginPage = {
-  method: 'GET',
-  path: '/login-page',
-  handler: (req, reply) => {
-    reply.view('login-page');
-  },
-};
-
-// const login = {
-//   method: 'POST',
-//   path: '/login',
-//   handler: loginFunc,
-// };
 
 const createPost = {
   method: 'GET',
@@ -42,7 +30,7 @@ const createPost = {
         credentials: req.auth.credentials,
       });
     } else {
-      reply.redirect('/login-page');
+      reply.redirect('/login');
     }
   },
 };
@@ -65,7 +53,6 @@ const logout = {
 
 module.exports = [
   home,
-  loginPage,
   createPost,
   logout,
   postBlog,
