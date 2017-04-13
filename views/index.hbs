@@ -1,6 +1,3 @@
-{{> header}}
-
-
 <div>
 {{#each posts}}
   {{> post-template}}
@@ -10,9 +7,8 @@
 
 
 
-
-<a href='./create-post'>do a blog post for much win</a>
-</br>
-<form action='/logout' method='GET'>
-    <button type='submit'>logout</button>
-</form>
+{{#if credentials.username}}
+  <form action='/create-post' method='get'>
+    <button type='submit'>do a blog post for much win</button>
+  </form>
+{{/if}}

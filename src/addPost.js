@@ -1,14 +1,16 @@
 const dbConnection = require('../database/db_connection.js');
 
-function postForm(req, reply) {
+module.exports = (req, reply) => {
+  console.log('WE ARE IN THE FUNCTION');
   const name = req.auth.credentials.username;
-  const date = new Date().toISOString().slice(0, 10);
-  dbConnection.query(`INSERT INTO posts (title, body, date, user_id) VALUES ('${req.payload.title}', '${req.payload.body}', '${date}', (SELECT user_id FROM users WHERE users.username = '${name}'));`, (err, res) => {
+  dbConnection.query(`INSERT INTO posts (title, body, user_id) VALUES ('${req.payload.title}', '${req.payload.body}', (SELECT user_id FROM users WHERE users.github_username = '${name}'));`, (err, res) => {
     if (err) {
+      console.log('ERROR=====', err);
       return err;
     }
-    reply.redirect('/');
+    console.log('RES======', res);
+    reply.redirect('/', {
+      credentials: req.auth.credentials,
+    });
   });
-}
-
-module.exports = postForm;
+};

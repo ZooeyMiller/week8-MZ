@@ -7,6 +7,22 @@
   <title>Document</title>
 </head>
 <body>
+
+  <navbar>
+    {{#if credentials.username}}
+      <p>Hello, {{credentials.username}}</p>
+      <img src={{credentials.avatar}} alt="your avatar">
+      <form action="/logout" method="get">
+        <button type="submit">logout</button>
+      </form>
+      {{else}}
+      <p>Hello stranger</p>
+      <form action="/login" method="get">
+        <button type="submit">Log in with GitHub!</button>
+      </form>
+    {{/if}}
+  </navbar>
+
   <div class='container'>
     {{{content}}}
   </div>
