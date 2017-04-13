@@ -50,6 +50,16 @@ const logout = {
   },
 };
 
+const public = {
+  method: 'GET',
+  path: '/{file*}',
+  handler: {
+    directory: {
+      path: 'public',
+    },
+  },
+};
+
 
 module.exports = [
   home,
@@ -58,4 +68,5 @@ module.exports = [
   postBlog,
   login,
   welcome,
+  public,
 ];

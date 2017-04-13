@@ -4,20 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/style.css">
   <title>Document</title>
 </head>
 <body>
 
-  <navbar>
+  <navbar class='nav'>
     {{#if credentials.username}}
-      <p>Hello, {{credentials.username}}</p>
-      <img src={{credentials.avatar}} alt="your avatar">
-      <form action="/logout" method="get">
+      <p class='welcome'>Hello, {{credentials.username}}</p>
+      <img class='avatar' src={{credentials.avatar}} alt="your avatar">
+      <form class="logout-in" action="/logout" method="get">
         <button type="submit">logout</button>
       </form>
       {{else}}
-      <p>Hello stranger</p>
-      <form action="/login" method="get">
+      <p class='welcome'>Hello stranger</p>
+      <form class="logout-in" action="/login" method="get">
         <button type="submit">Log in with GitHub!</button>
       </form>
     {{/if}}

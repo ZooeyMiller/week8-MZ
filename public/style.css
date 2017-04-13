@@ -1,0 +1,25 @@
+.nav {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 10%;
+  background-color: #7eacf7; 
+}
+
+.avatar {
+  display: inline;
+  max-height: 2em;
+  right: -1em;
+}
+
+.welcome {
+  display: inline;
+}
+
+.logout-in{
+  display: inline;
+}
+
+.container {
+  margin-top: 10%;
+}
