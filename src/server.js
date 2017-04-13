@@ -4,7 +4,6 @@ const routes = require('./routes');
 const vision = require('vision');
 const Handlebars = require('handlebars');
 const cookieAuth = require('hapi-auth-cookie');
-const hapiAuth = require('hapi-auth-basic');
 const env = require('env2')('./config.env');
 
 
@@ -17,7 +16,7 @@ server.connection({
   },
 });
 
-server.register([inert, vision, hapiAuth, cookieAuth], (err) => {
+server.register([inert, vision, cookieAuth], (err) => {
   if (err) throw err;
 
   const options = {

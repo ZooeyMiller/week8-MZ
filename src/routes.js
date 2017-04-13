@@ -3,9 +3,6 @@ const dbConnection = require('../database/db_connection.js');
 const login = require('./login.js');
 const welcome = require('./welcome.js');
 
-// console.log(addPost);
-
-
 const home = {
   method: 'GET',
   path: '/',
@@ -50,7 +47,7 @@ const logout = {
   },
 };
 
-const public = {
+const assets = {
   method: 'GET',
   path: '/{file*}',
   handler: {
@@ -68,5 +65,5 @@ module.exports = [
   postBlog,
   login,
   welcome,
-  public,
+  assets,
 ];
