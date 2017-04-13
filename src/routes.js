@@ -7,8 +7,9 @@ const home = {
   method: 'GET',
   path: '/',
   handler: (req, reply) => {
-    dbConnection.query('SELECT posts.title AS title, posts.body AS body, users.github_username AS username FROM posts INNER JOIN users ON posts.user_id = users.user_id', (err, res) => {
+    dbConnection.query('SELECT posts.post_id AS id, posts.title AS title, posts.body AS body, users.github_username AS username FROM posts INNER JOIN users ON posts.user_id = users.user_id ORDER BY id DESC', (err, res) => {
       if (err) return err;
+      console.log(res.rows);
       reply.view('index', {
         credentials: req.auth.credentials,
         posts: res.rows,
